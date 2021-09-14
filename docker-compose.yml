@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  docker-proxy:
+    #build: ./
+#    build:
+#      context: ./
+#      dockerfile: Dockerfile
+#      dockerfile: Dockerfile.gradle
+#    image: mingc/android-build-box:latest
+    image: sameersbn/squid:3.5.27-2
+    hostname: squid
+    container_name: docker-proxy
+#    command: "./gradlew assembleRelease"
+    privileged: true
+    volumes:
+      - ./data/cache:/var/spool/squid
+      - ./conf/squid.conf:/etc/squid/squid.conf
+      - ./conf/htpasswd:/etc/squid/passwd
+    ports:
+      - 2222:3128
+      
